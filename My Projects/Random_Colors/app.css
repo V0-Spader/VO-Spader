@@ -3,12 +3,12 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
 }
 h1{
     font-size: 15rem;
-    font-family: fantasy;
+    font-family: serif;
 }
 .letter {
-    transition: color 2000ms;
+    transition: color 1000ms;
 }

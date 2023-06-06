@@ -5,12 +5,8 @@ function randomRGB() {
     return `rgb(${r},${g},${b})`
 }
 
-//const h1 = document.querySelector('h1');
-//h1.style.color = randomRGB();
-
-//setInterval(function() {
-    //h1.style.color = randomRGB();
-//}, 500);
+// const h1 = document.querySelector('h1');
+// h1.style.color = randomRGB();
 
 const letters = document.querySelectorAll('.letter')
 
@@ -18,4 +14,7 @@ setInterval(function () {
     for (let letter of letters) {
         letter.syle.color = randomRGB();
     }
-}, 2000);
+}, 1000);
+
+
+
