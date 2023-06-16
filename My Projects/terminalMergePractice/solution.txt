@@ -1,0 +1,15 @@
+What git command creates a branch?
+    - There are two ways to create a branch. Way one is using the command git branch followed by the branchName. Way two is the command git branch -b folowed by the branchName.
+
+What is the difference between a fast-forward and reclusive merge?
+    - a fast-forward merge is when git can easily tell when the commits happened cronologically.
+    - recursive merge is used when there are new original commits on the master branch.
+
+What git command changes to another branch?
+    - git checkout branchName
+
+What git command deletes a branch?
+    - git branch -d branchName
+
+How do merge conflits happen?
+    - When changes are commited to the same file from two different branches.
