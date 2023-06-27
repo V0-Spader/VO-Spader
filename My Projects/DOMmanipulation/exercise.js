@@ -12,7 +12,7 @@ document.querySelector('ol .third');
 
 // question 5
 let theDiv = document.querySelector('#container');
-theDiv.innerText = "Hello";
+theDiv.innerText = 'Hello';
 
 // question 6
 let footClan = document.querySelector('.footer');
@@ -20,7 +20,7 @@ footer.classList.add('main');
 
 // question 7
 let footClan = document.querySelector('.footer');
-footClan.classList.remove('main');
+footer.classList.remove('main');
 
 // question 8
 let newLi = document.createElement('li');
