@@ -21,7 +21,7 @@ function vowelCount(str) {
 }
 
 function addKeyAndVal(arr, key, val) {
-    return arr.reduce((acc, next, idx) => {
+    return arr.reduce((acc, idx) => {
         acc[idx][key] = val;
         return acc;
     },arr);
@@ -29,7 +29,7 @@ function addKeyAndVal(arr, key, val) {
 
 function partition(arr, cb) {
     return arr.reduce((acc, next) => {
-        if(cb(next) {
+        if(cb(next)){
             acc[0].push(next);
         } else 
             {
