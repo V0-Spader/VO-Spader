@@ -14,6 +14,17 @@
 
 //sevent step: 1v1, easy ai, hard ai
 
+const winCondition = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+];
+
 const form = document.querySelector("#myform")
 
 form.addEventListener('submit', (event) => {
@@ -37,26 +48,6 @@ const initializeVar = (data) => {
     data.gameOver = false;
 }
 
-const playMove = (box, data) => {
-//is game over? If game over, don't do anything
-if (data.gameOver || data.round > 8) {
-    return
-}
-//check if game box has a letter in it, if so then don't do anything
-if(data.board[box.id] === "X" || data.board[box.id] === "O") {
-    return;
-}
-
-//adjust the DOM for fplayer move, and then check win consition
-data.board[box, id] = data.currentPlayer;
-box.textContent = data.currentPlayer;
-box.classList.add(data.currentPlayer === "X" ? "player1" : "player2");
-//increse the round #
-data.round++;
-
-//check end conditions
-};
-
 const addEventListenerToGameBoard = (data) => {
     document.querySelectorAll('.box').forEach(box => {
         box.addEventListener('click', (event) => {
@@ -67,9 +58,79 @@ const addEventListenerToGameBoard = (data) => {
 
 const initializeGame = (data) => {
     //initialize game variable
+    adjustDom('displayTurn', `${displayTurnText}'s turn`);
     initializeVar(data);
     
     //add event listener to the gameboard
     addEventListenerToGameBoard(data);
 
 }
+
+const playMove = (box, data) => {
+    //is game over? If game over, don't do anything
+    if (data.gameOver || data.round > 8) {
+        return;
+    }
+    //check if game box has a letter in it, if so then don't do anything
+    if(data.board[box.id] === "X" || data.board[box.id] === "O") {
+        return;
+    }
+    
+    //adjust the DOM for fplayer move, and then check win consition
+    data.board[box, id] = data.currentPlayer;
+    box.textContent = data.currentPlayer;
+    box.classList.add(data.currentPlayer === "X" ? "player1" : "player2");
+    //increse the round #
+    data.round++;
+    
+    //check end conditions
+    if(endConditions(data)) {
+        return;
+    }
+    //change current player
+    //change dom, and change data.currentplayer
+    changePlayer(data);
+    };
+
+    const endConditions = (data) => {
+        //3 options
+        //winner
+        //tie
+        //game not over yet
+        if(checkWinner(data)) {
+            //adjust the dom to reflect win
+            let winnerName = data.currentPlayer === "X" ? data.player1Name ? data.player2Name;
+           adjustDom("displayTurn", winnerName + " has won the game!");
+            return true
+        } else if (data,round === 9) {
+            adjustDom("displayTurn", "It's a tie!");
+            data.gameOver = true;
+            //adjust the dom to reflect tie
+            return true
+        }
+        return false
+    };
+
+    const checkWinner = (data) => {
+        let result = false;
+        winCondition.foreach(condition => {
+            if(
+                data.board[condition[0]] === data.board[condition[1]] &&
+                data.board[condition[1]] === data.board[condition[2]]
+            ) {
+                data.gameOver = true;
+                result = true;
+            }
+        });
+        return result;
+    };
+
+    const adjustDom = (className, textContent) => {
+      const element =  document.querySelector(`.${className}`)
+      element.textContent = textContent;
+    };
+
+    const changePlayer = (data) => {
+        data.currentPlayer = data.currentPlayer === "X" ? "O" : "X";
+        //adjust the dom
+    };
