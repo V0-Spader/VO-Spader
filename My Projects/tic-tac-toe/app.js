@@ -87,9 +87,17 @@ const playMove = (box, data) => {
     if(endConditions(data)) {
         return;
     }
+
     //change current player
     //change dom, and change data.currentplayer
-    changePlayer(data);
+    if(data.choice === 0) {
+        changePlayer(data);
+    } else if (data.choice === 1) {
+        //easy ai
+        easyAimove(data);
+        data.currentPlayer = "X"
+        //change back to player1
+    }
     };
 
     const endConditions = (data) => {
@@ -133,4 +141,27 @@ const playMove = (box, data) => {
     const changePlayer = (data) => {
         data.currentPlayer = data.currentPlayer === "X" ? "O" : "X";
         //adjust the dom
+        let displayTurnText = 
+        data.currentPlayer === "X" ? data.player1Name : data.player2Name;
+        adjustDom("displayTurn", `${displayTurnText}'s turn`);
+    };
+
+    const easyAiMove = (data) => {
+        changePlayer(data);
+        setTimeout( () => {
+            let availableSpaces = data.board.filter(
+                space => space !== "X" && space !== "O"
+                );
+            let move = availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
+             data.board[move] = data.player2;
+             let box = document.getElementById(`${move}`);
+             box.textContent = data.player2;
+             box.classList.add("player2");
+        }, 300);
+      
+        if (endConditions(data)) {
+            return;
+        }
+
+        changePlayer(data);
     };
