@@ -25,7 +25,7 @@ const winCondition = [
     [2,4,6]
 ];
 
-const form = document.querySelector("#myform");
+const form = document.querySelector("#myForm");
 const newGameBtn = document.querySelector("#restartBtn");
 
 const resetGameBtn = document.querySelector("#resetBtn");
@@ -34,15 +34,15 @@ newGameBtn.addEventListener("click", () => {
     location.reload();
 });
 
-form.addEventListener('submit', (event) => {
-    //prevent page efresh
+form.addEventListener("submit", (event) => {
+    //prevent page refresh
     event.preventDefault();
 
     //initializes user form data
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     document.querySelector(".modalWrapper").setAttribute("hidden", true);
-    initializeGame(data)
+    initializeGame(data);
 });
 
 const initializeVar = (data) => {
@@ -97,7 +97,7 @@ const playMove = (box, data) => {
     
     //adjust the DOM for fplayer move, and then check win consition
     
-    data.board[box, id] = data.currentPlayer;
+    data.board[box.id] = data.currentPlayer;
     box.textContent = data.currentPlayer;
     box.classList.add(data.currentPlayer === "X" ? "player1" : "player2");
     //increse the round #
@@ -115,7 +115,8 @@ const playMove = (box, data) => {
     } else if (data.choice === 1) {
         //easy ai
         easyAiMove(data);
-        data.currentPlayer = "X"
+        data.currentPlayer = "X";
+
         //change back to player1
     } else if (data.choice === 2) {
         changePlayer(data);
@@ -138,7 +139,7 @@ const playMove = (box, data) => {
             data.currentPlayer === "X" ? data.player1Name : data.player2Name;
            adjustDom("displayTurn", winnerName + " has won the game!");
             return true;
-        } else if (data,round === 9) {
+        } else if (data.round === 9) {
             adjustDom("displayTurn", "It's a tie!");
             data.gameOver = true;
             //adjust the dom to reflect tie
@@ -149,8 +150,8 @@ const playMove = (box, data) => {
 
     const checkWinner = (data, player) => {
         let result = false;
-        winCondition.foreach((condition) => {
-            if(
+        winCondition.forEach((condition) => {
+            if (
                 data.board[condition[0]] === player &&
                 data.board[condition[1]] === player &&
                 data.board[condition[2]] === player
@@ -178,12 +179,11 @@ const playMove = (box, data) => {
         changePlayer(data);
 
         data.round++;
-
+        let availableSpaces = data.board.filter(
+            (space) => space !== "X" && space !== "O");
+        let move = availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
+         data.board[move] = data.player2;
         setTimeout( () => {
-            let availableSpaces = data.board.filter(
-                (space) => space !== "X" && space !== "O");
-            let move = availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
-             data.board[move] = data.player2;
              let box = document.getElementById(`${move}`);
              box.textContent = data.player2;
              box.classList.add("player2");
@@ -192,7 +192,6 @@ const playMove = (box, data) => {
         if (endConditions(data)) {
             return;
         }
-
         changePlayer(data);
     };
 
@@ -204,6 +203,8 @@ const playMove = (box, data) => {
         let box = document.getElementById(`${move}`);
         box.textContent = data.player2;
         box.classList.add("player2");
+
+        console.log(data);
     };
 
     const minmax = (data, player) => {
