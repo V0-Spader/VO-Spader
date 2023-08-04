@@ -27,7 +27,6 @@ const winCondition = [
 
 const form = document.querySelector("#myForm");
 const newGameBtn = document.querySelector("#restartBtn");
-
 const resetGameBtn = document.querySelector("#resetBtn");
 
 newGameBtn.addEventListener("click", () => {
@@ -35,6 +34,7 @@ newGameBtn.addEventListener("click", () => {
 });
 
 form.addEventListener("submit", (event) => {
+    
     //prevent page refresh
     event.preventDefault();
 
