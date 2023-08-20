@@ -1,0 +1,57 @@
+/* game board table */
+body {
+  width: 100vw;
+  min-height: 100vh;
+  background-image: URL(https://e1.pxfuel.com/desktop-wallpaper/815/229/desktop-wallpaper-abstract-isometric.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#head {
+  display: flex;
+  justify-content: center;
+  color: aliceblue;
+  text-shadow:  0 0 0.2rem azure, 0 0 0.2rem azure, 0 0 2rem #bc13fe,
+  0 0 0.8rem #bc13fe;
+}
+
+
+#playerNames {
+  padding: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+#game {
+  display: flex;
+  justify-content: center;
+}
+
+#board td {
+  width: 50px;
+  height: 50px;
+  border: solid 2px azure;
+  box-shadow:  0 0 0.2rem azure, 0 0 0.2rem azure, 0 0 2rem #bc13fe,
+  0 0 0.8rem #bc13fe;
+}
+
+/* pieces are div within game table cells: draw as colored circles */
+
+.piece {
+  margin: 5px;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+}
+
+/* column-top is table row of clickable areas for each column */
+
+#column-top td {
+  border: dashed 2px black;
+}
+
+#column-top td:hover {
+  background-color: gold;
+}
