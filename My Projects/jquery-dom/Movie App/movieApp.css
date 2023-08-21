@@ -1,0 +1,28 @@
+div{
+    margin-top: 1em;
+}
+
+.error {
+    color: goldenrod;
+}
+
+form {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
+.formbutton{
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+.movie-details {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+}
+
+.rmvbutton{
+    margin-left: 1em;
+    font-weight: bold;
+    padding: 0em .75em;
+}
