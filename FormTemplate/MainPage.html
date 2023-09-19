@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Form</title>
+        <link rel="stylesheet" href="mainStyle.css">
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1 id="title" class="title"> &#9824;'s DnD Survey Form</h1>
+                <p id="description" class="description title">Thank you for taking the time to take my sample survey!</p>
+            </header>
+            <form id="surveyForm">
+                <div class="formGroup">
+                    <label id="name-label" for="name">Name</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name here" required>
+                </div>
+                <div class="formGroup">
+                    <label id="email-label" for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email" required>
+                </div>
+                <div class="formGroup">
+                    <label id="number-label" for="number">Age
+                        <span class="hint">(optional)</span>
+                    </label>
+                    <input type="number" name="age" id="number" min="10" max="99" class="form-control" placeholder="Age">
+                </div>
+                <div class="formGroup">
+                    <p>Which class best describes your personality?</p>
+                    <select id="dropdown" name="role" class="form-control" required>
+                        <option disabled selected value>Select an Option</option>
+                        <option value="paladin">Paladin</option>
+                        <option value="fighter">Fighter</option>
+                        <option value="rogue">Rogue</option>
+                        <option value="wizard">Wizard</option>
+                        <option value="druid">Druid</option>
+                        <option value="sorcerer">Sorcerer</option>
+                        <option value="monk">Monk</option>
+                        <option value="warlock">Warlock</option>
+                        <option value="home-brew">Something more creative</option>
+                    </select>
+                </div>
+                <div class="formGroup">
+                    <p>Would you recommend DnD to a friend?</p>
+                    <label for="recommend">
+                        <input type="radio" name="user-recommend" value="definitely" class="input-radio"> Definitely!
+                    </label>
+                    <label for="recommend">
+                        <input type="radio" name="user-recommend" value="maybe" class="input-radio"> Maybe..
+                    </label>
+                    <label for="recommend">
+                        <input type="radio" name="user-recommend" value="no" class="input-radio"> Ha!... no
+                    </label>
+                </div>
+                <div class="formGroup">
+                    <p>What is your favorite part of the game?</p>
+                    <select id="most-like" name="most-like" class="form-control">
+                        <option disabled selected value>Select an option</option>
+                        <option value="puzzles">Puzzles</option>
+                        <option value="dungeons">Dungeon Crawls</option>
+                        <option value="loot">The Loot</option>
+                        <option value="rp">Role PLaying</option>
+                        <option value="combat">Combat!</option>
+                    </select>
+                </div>
+                <div class="formGroup">
+                    <p>What would you like to see more of?
+                        <span class="hint">(Check all that apply)</span>
+                    </p>
+                    <label for="preferred">
+                        <input name="prefer" value="npc" type="checkbox" class="input-checkbox">Cooler NPC's
+                    </label>
+                    <label for="preferred">
+                        <input name="prefer" value="world-building" type="checkbox" class="input-checkbox">Exploring the World
+                    </label>
+                    <label for="preferred">
+                        <input name="prefer" value="more-combat" type="checkbox" class="input-checkbox">More Combat!
+                    </label>
+                    <label for="preferred">
+                        <input name="prefer" value="more-rp" type="checkbox" class="input-checkbox">More Role Playing
+                    </label>
+                    <label for="preferred">
+                        <input name="prefer" value="plot" type="checkbox" class="input-checkbox">More Plot Development
+                    </label>
+                    <label for="preferred">
+                        <input name="prefer" value="more-loot" type="checkbox" class="input-checkbox">Better Loot
+                    </label>
+                    <label for="preferred">
+                        <input name="prefer" value="backstory" type="checkbox" class="input-checkbox">Include My Epic Backstory!
+                    </label>
+                </div>
+                <div class="formGroup">
+                    <p>Any Comments or Suggestions?</p>
+                    <textarea name="Comments" id="Comments" cols="30" rows="10" class="input-textarea" placeholder="Enter your comment here..."></textarea>
+                </div>
+                <div class="formGroup">
+                    <button type="submit" id="submit" class="submit-button"> Submit </button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
