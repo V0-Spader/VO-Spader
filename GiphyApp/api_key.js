@@ -1,1 +1,2 @@
-let api = "";
+//Copy your api here
+let api_key = "";
