@@ -21,11 +21,21 @@ class Story {
     this.createdAt = createdAt;
   }
 
+  //Fetchig a story from the api usign static method
+  static async getStory(storyId) {
+    const response = await fetch(`${BASE_URL}/stories/${storyId}`, {
+      method: "GET",
+    });
+    const storyData = await response.json();
+    const fetchedStory = storyData.story;
+    return new Story(fetchedStory);
+  }
+
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return new URL(this.url).host;
   }
 }
 
@@ -54,13 +64,13 @@ class StoryList {
     //  instance method?
 
     // query the /stories endpoint (no auth required)
-    const response = await axios({
-      url: `${BASE_URL}/stories`,
+    const response = await fetch(`${BASE_URL}/stories`, {
       method: "GET",
     });
+    const storiesData = await response.json();
 
     // turn plain old story objects from API into instances of Story class
-    const stories = response.data.stories.map(story => new Story(story));
+    const stories = storiesData.stories.map(story => new Story(story));
 
     // build an instance of our own class using the new array of stories
     return new StoryList(stories);
@@ -73,8 +83,41 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  async addStory(user, { title, author, url}) {
+    const token = user.loginToken;
+
+    const response = await fetch(`${BASE_URL}/stories`, {
+      method: "POST",
+      body: JSON.stringify({ token, story: { title, author, url } }),
+      headers: { "content-type": "application/json", }
+    });
+    
+    const storyData = await response.json();
+    console.log("ADD STORY DATA", storyData);
+
+    const story = new Story(storyData.story);
+    this.stories.unshift(story);
+    user.ownStories.unshift(story);
+
+    return story;
+  }
+
+  //Delete story from lists and API
+  async removeStory(user, storyId) {
+    const token = user.loginToken;
+
+    await fetch(`${BASE_URL}/stories/${storyId}`, {
+      method: "DELETE",
+      body: JSON.stringify({ token }),
+      headers: { "content-type": "application/json", }
+    });
+
+    //once ID is removed, filter out the story
+    this.stories = this.stories.filter(story => story.storyId !== storyId);
+
+    //We will do the same thing for the user's story lists and favs
+    user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+    user.favorites = user.favorites.filter(s => s.storyId !== storyId);
   }
 }
 
@@ -117,13 +160,14 @@ class User {
    */
 
   static async signup(username, password, name) {
-    const response = await axios({
-      url: `${BASE_URL}/signup`,
+    const response = await fetch(`${BASE_URL}/signup`, {
       method: "POST",
-      data: { user: { username, password, name } },
+      body: JSON.stringify({ user: { username, password, name } }),
+      headers: { "content-type": "application/json", }
     });
 
-    let { user } = response.data
+    const userData = await response.json();
+    const {user} = userData;
 
     return new User(
       {
@@ -144,13 +188,14 @@ class User {
    */
 
   static async login(username, password) {
-    const response = await axios({
-      url: `${BASE_URL}/login`,
+    const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
-      data: { user: { username, password } },
+      bosy: JSON.stringify({user: { username, password }}),
+      header: {"content-type": "application/json"}
     });
 
-    let { user } = response.data;
+    const userData = await response.json();
+    const {user} = userData;
 
     return new User(
       {
@@ -160,7 +205,7 @@ class User {
         favorites: user.favorites,
         ownStories: user.stories
       },
-      response.data.token
+      userData.token
     );
   }
 
@@ -170,13 +215,15 @@ class User {
 
   static async loginViaStoredCredentials(token, username) {
     try {
-      const response = await axios({
-        url: `${BASE_URL}/users/${username}`,
-        method: "GET",
-        params: { token },
-      });
+      const tokenParams = new URLSearchParams({token});
 
-      let { user } = response.data;
+      const response = await fetch(`${BASE_URL}/users/${username}?${tokenParams}`, {
+        method: "GET"
+        }
+      );
+
+      const userData = await response.json();
+      const {user} = userData;
 
       return new User(
         {
@@ -192,5 +239,34 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  //Add story to favs and update API
+  async addFavorites(story) {
+    this.favorites.push(story);
+    await this._addOrRemoveFavorites("add", story);
+  }
+
+  //Remove story from favs and update API
+  async removeFavorites(story) {
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
+    await this._addOrRemoveFavorites("remove", story);
+  }
+
+  //Update API when story is fav or not
+  async _addOrRemoveFavorites(newState, story) {
+    const method = newState === "add" ? "POST": "DELETE";
+    const token = this.loginToken;
+
+    await fetch(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`, {
+      method: method,
+      body: JSON.stringify({token}),
+      headers: {"content-type": "application/json", }
+    });
+  }
+  
+  //check if a story is fav
+  isFavorite(story) {
+    return this.favorites.some(s => (s.storyId === story.storyId));
   }
 }
