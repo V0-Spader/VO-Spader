@@ -37,7 +37,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-self: center;
-  background-color: #f6f6ef;
+  background-color: #9a9a9e;
 }
 
 .hidden {
@@ -87,7 +87,7 @@ form > button {
   border-radius: 4px;
   padding: 8px;
   font-size: 0.85rem;
-  background-color: lightslategray;
+  background-color: rgb(67, 78, 90);
   color: white;
   cursor: pointer;
   transition: all 0.15s;
@@ -99,7 +99,7 @@ form > button:hover {
 
 form > hr {
   margin: 0;
-  border: 1px solid lightgray;
+  border: 1px solid rgb(22, 22, 22);
 }
 
 .login-input label {

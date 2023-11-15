@@ -167,5 +167,6 @@ async function toggleFav(evt) {
     await currentUser.addFavorites(story);
     $target.closest("i").toggleClass("bi-star bi-star-fill");
   }
+
+  $storiesLists.on("click", ".star", toggleFav);
 }
-$storiesLists.on("click", ".star", toggleFav);
