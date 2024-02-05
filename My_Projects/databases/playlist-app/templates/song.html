@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1>Song Details</h1>
+<p>Title: {{ song.title }}</p>
+<p>Artist: {{ song.artist }}</p>
+<p>Duration: {{ song.duration }}</p>
+<form method="POST" action="{{ url_for('song', song_id=song.id) }}">
+    {{ form.hidden_tag() }}
+    <p>{{ form.playlists.label }} {{ form.playlists }}</p>
+    <p>{{ form.submit }}</p>
+</form>
+</div>
+
+{% endblock %}
