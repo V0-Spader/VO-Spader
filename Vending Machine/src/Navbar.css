@@ -1,0 +1,20 @@
+.Navbar {
+  background-color: rgb(69, 90, 100);
+  display: flex;
+  justify-content: space-around;
+  padding: 1.5rem;
+  color: white;
+}
+
+.Navbar a {
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+}
+.Navbar a:hover {
+  background-color: black;
+}
+
+.navbar-active {
+  background: green;
+}
