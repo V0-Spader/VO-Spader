@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Nav Bar</title>
+
+    <!--csutome inline css-->
+    <style>
+
+        *{
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        body{
+            min-height: 100vh;
+            background: url('http://www.getuwired.com/devtest/Death_to_stock_photography_Vibrant.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        header{
+            position: fixed;
+            top:0; left: 0; right: 0;
+            background: white;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+            padding: 0px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        header:hover{
+            border-bottom: 10px solid rgb(24, 217, 166);
+            transition: 0.3s ease;
+        }
+
+        header .navbar ul{
+            list-style: none;
+            border-radius: 15px;
+        }
+
+        header .navbar ul li{
+            position: relative;
+            float: left;
+        }
+
+        header .navbar ul li a{
+            font-size: 15px;
+            padding: 25px;
+            color: black;
+            text-shadow: #333;
+            display: block;
+        }
+
+        header .navbar ul li a:hover{
+            background: rgb(24, 217, 166);
+            color: black;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        header .navbar ul li ul{
+            position: absolute;
+            left: 0;
+            width: fit-content;
+            background: rgb(24, 217, 166);
+            display: none;
+            transition: 0.3s ease;
+        }
+
+        header .navbar ul li ul li{
+            width: 100%;
+            border-top: 1px solid rbga(0,0,0,.1);
+            white-space: nowrap;
+        }
+
+        header .navbar ul li ul li a:hover{
+            background: rgb(32, 150, 120);
+            width: 100%;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        header .navbar ul li ul li ul{
+            left: 200px;
+            top: 0;
+        }
+
+        header .navbar ul li ul li a{
+            text-align: center;
+            color: white;
+            text-shadow: black 1px 1px;
+        }
+
+        header.navbar ul li:focus-within > ul,
+        header .navbar ul li:hover > ul{
+            display: initial;
+        }
+
+        #menu-bar{
+            display: none;
+        }
+
+        header label{
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+            display: none;
+        }
+
+        @media (max-width:991px){
+
+            header{
+                padding: 20px;
+            }
+
+            header label{
+                display: initial;
+            }
+
+            header .navbar{
+                position: absolute;
+                top:100%; left: 0; right: 0;
+                background: white;
+                border-top: 1px solid rgba(0, 0, 0, .1);
+                display: none;
+            }
+
+            header .navbar ul li{
+                width: 100%;
+            }
+
+            header .navbar ul li ul{
+                position: relative;
+                width: 100%;
+            }
+
+            header .navbar ul li ul li{
+                background: white;
+            }
+
+            #menu-bar:checked ~ .navbar{
+                display: initial;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <header>
+
+        <h1>
+            <a href="#" class="logo" style="color: black;">GETUWIRED</a>
+        </h1>
+
+        <input type="checkbox" id="menu-bar">
+        <label for="menu-bar">Menu</label>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">ABOUT</a>
+                    <ul>
+                        <li><a href="#">out story</a></li>
+                        <li><a href="#">our commitment to you</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">LOCATIONS</a>
+                    <ul>
+                        <li><a href="#">austin, tx</a></li>
+                        <li><a href="#">atlanta, ga</a></li>
+                        <li><a href="#">seattle, wa</a></li>
+                        <li><a href="#">portland, or</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">PRODUCTS</a>
+                    <ul>
+                        <li><a href="#">new arrivals</a></li>
+                        <li><a href="#">featued</a></li>
+                        <li><a href="#">top rated</a></li>
+                        <li><a href="#">his</a></li>
+                        <li><a href="#">hers</a></li>
+                        <li><a href="#">kids</a></li>
+                        <li><a href="#">accessories</a></li>
+                        <li><a href="#">spring catalog</a></li>
+                        <li><a href="#">the essentials</a></li>
+                        <li><a href="#">sale</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">BLOG</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    
+</body>
+</html>
