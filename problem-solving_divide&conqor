@@ -1,0 +1,102 @@
+def countZeroes(arr):
+    # Binary search to find the first occurrence of 0
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == 0:
+            right = mid - 1
+        else:
+            left = mid + 1
+    
+    # The count of zeroes is the length of the array minus the index of the first 0
+    return len(arr) - left
+
+
+def sortedFrequency(arr, num):
+    # Binary search to find the first occurrence of num
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == num:
+            right = mid - 1
+        elif arr[mid] < num:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    # If num is not found, return -1
+    if left >= len(arr) or arr[left] != num:
+        return -1
+    
+    # Binary search to find the last occurrence of num
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == num:
+            left = mid + 1
+        elif arr[mid] < num:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    # The count of occurrences is the difference between the last and first occurrence indices
+    return right - left + 1
+
+def findRotatedIndex(arr, num):
+    # Binary search to find the pivot (index of the smallest element)
+    left, right = 0, len(arr) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] > arr[right]:
+            left = mid + 1
+        else:
+            right = mid
+    
+    # Set the pivot index
+    pivot = left
+    
+    # Binary search to find the target num
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        rotated_mid = (mid + pivot) % len(arr)  # Adjust mid for rotation
+        if arr[rotated_mid] == num:
+            return rotated_mid
+        elif arr[rotated_mid] < num:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    # If num is not found, return -1
+    return -1
+
+
+def findRotationCount(arr):
+    # Binary search to find the pivot (index of the smallest element)
+    left, right = 0, len(arr) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] > arr[right]:
+            left = mid + 1
+        else:
+            right = mid
+    
+    # The value of n (number of rotations) is the pivot index
+    return left
+
+
+def findFloor(arr, x):
+    # Binary search to find the floor
+    left, right = 0, len(arr) - 1
+    floor = -1  # Initialize floor to -1 (in case no floor exists)
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == x:
+            return arr[mid]  # Found exact match, return x
+        elif arr[mid] < x:
+            floor = arr[mid]  # Update floor and search right
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return floor
